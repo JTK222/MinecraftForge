@@ -21,9 +21,7 @@ package net.minecraftforge.server.permission;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
 
-import javax.annotation.Nullable;
 import java.util.function.Function;
 
 public class PermissionNode<T>
@@ -31,19 +29,19 @@ public class PermissionNode<T>
    private final String identifier;
    private final PermissionType<T> type;
    private final Function<GameProfile, T> defaultValueProvider;
-   private final ITextComponent description;
+   private final String description;
 
    public PermissionNode(ResourceLocation identifier, PermissionType<T> type, Function<GameProfile, T> defaultValueProvider)
    {
-      this(identifier.getNamespace() + "." + identifier.getPath(), type, defaultValueProvider, null);
+      this(identifier.getNamespace() + "." + identifier.getPath(), type, defaultValueProvider, "");
    }
 
-   public PermissionNode(ResourceLocation identifier, PermissionType<T> type, Function<GameProfile, T> defaultValueProvider, ITextComponent description)
+   public PermissionNode(ResourceLocation identifier, PermissionType<T> type, Function<GameProfile, T> defaultValueProvider, String description)
    {
       this(identifier.getNamespace() + "." + identifier.getPath(), type, defaultValueProvider, description);
    }
 
-   public PermissionNode(String identifier, PermissionType<T> type, Function<GameProfile, T> defaultValueProvider, ITextComponent description)
+   public PermissionNode(String identifier, PermissionType<T> type, Function<GameProfile, T> defaultValueProvider, String description)
    {
       this.identifier = identifier;
       this.type = type;
@@ -66,8 +64,7 @@ public class PermissionNode<T>
       return defaultValueProvider.apply(profile);
    }
 
-   @Nullable
-   public ITextComponent getDescription()
+   public String getDescription()
    {
       return this.description;
    }
